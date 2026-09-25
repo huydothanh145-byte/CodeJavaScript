@@ -1,29 +1,53 @@
-
+package Tuan5;
 
 import java.util.Scanner;
 
-import com.sinhvien.SinhVien;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.println("QUẢN LÝ SINH VIÊN");
-        
-        SinhVien sv1 = new SinhVien(12345, "Nguyen Van A", 9.5, 8.5);
-        SinhVien sv2 = new SinhVien(12346, "Tran Thi B", 7.0, 8.0);
-        SinhVien sv3 = new SinhVien(12347, "Nguyen Van C", 8.5, 7.0);
-        SinhVien sv4 = new SinhVien(12348, "Le Thi D", 9.0, 8.0);
 
-  
-        System.out.println("\nDANH SACH SINH VIEN\n");
-        System.out.printf("%-10s %-25s %-10s %-10s %-10s%n", 
-                         "MSSV", "HO VA TEN", "DIEM LT", "DIEM TH", "DIEM TB\n");
-        System.out.println(sv1.toString());
-        System.out.println(sv2.toString());
-        System.out.println(sv3.toString());
-        System.out.println(sv4.toString());
+        Scanner sc = new Scanner(System.in);
 
-        scanner.close();
+        System.out.print("Nhap so luong cong nhan: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+
+        DanhSachCongNhan ds = new DanhSachCongNhan(n);
+
+        for (int i = 0; i < n; i++) {
+
+            System.out.println("\nNhap cong nhan thu " + (i + 1));
+
+            System.out.print("Ma cong nhan: ");
+            String ma = sc.nextLine();
+
+            System.out.print("Ho: ");
+            String ho = sc.nextLine();
+
+            System.out.print("Ten: ");
+            String ten = sc.nextLine();
+
+            System.out.print("So san pham: ");
+            int soSP = sc.nextInt();
+            sc.nextLine();
+
+            CongNhan cn = new CongNhan(ma, ho, ten, soSP);
+
+            ds.ThemCongNhan(cn);
+        }
+
+        System.out.println("\n=== DANH SACH CONG NHAN ===");
+        ds.XuatDanhSach();
+
+        System.out.println("\n=== SO LUONG CONG NHAN ===");
+        System.out.println(ds.SoLuongCN());
+
+        System.out.println("\n=== CONG NHAN TREN 200 SAN PHAM ===");
+        ds.CNLamTren200();
+
+        System.out.println("\n=== SAP XEP GIAM DAN ===");
+        ds.SapXepGiam();
+        ds.XuatDanhSach();
+
+        sc.close();
     }
 }
