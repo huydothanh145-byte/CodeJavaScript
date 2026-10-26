@@ -1,53 +1,259 @@
-package Tuan5;
+
+package DoThanhHuy25684371;
 
 import java.util.Scanner;
 
 public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static QuanLyPhongHoc ql = new QuanLyPhongHoc();
+
     public static void main(String[] args) {
+        int chon;
 
-        Scanner sc = new Scanner(System.in);
+        do {
+            System.out.println("\n========== MENU QUAN LY PHONG HOC ==========");
+            System.out.println("1. Them phong ly thuyet");
+            System.out.println("2. Them phong may tinh");
+            System.out.println("3. Them phong thi nghiem");
+            System.out.println("4. Hien thi danh sach phong hoc");
+            System.out.println("5. Tim phong theo ma");
+            System.out.println("6. Xoa phong theo ma");
+            System.out.println("7. Hien thi phong dat chuan");
+            System.out.println("8. Sap xep tang dan theo day nha");
+            System.out.println("9. Sap xep giam dan theo dien tich");
+            System.out.println("10. Sap xep tang dan theo so bong den");
+            System.out.println("11. Cap nhat so may tinh");
+            System.out.println("12. Tong so phong hoc");
+            System.out.println("13. Liet ke phong may tinh co 60 may");
+            System.out.println("0. Thoat");
+            System.out.print("Nhap lua chon: ");
 
-        System.out.print("Nhap so luong cong nhan: ");
-        int n = sc.nextInt();
-        sc.nextLine();
+            chon = Integer.parseInt(sc.nextLine());
 
-        DanhSachCongNhan ds = new DanhSachCongNhan(n);
+            switch (chon) {
+                case 1:
+                    themPhongLyThuyet();
+                    break;
 
-        for (int i = 0; i < n; i++) {
+                case 2:
+                    themPhongMayTinh();
+                    break;
 
-            System.out.println("\nNhap cong nhan thu " + (i + 1));
+                case 3:
+                    themPhongThiNghiem();
+                    break;
 
-            System.out.print("Ma cong nhan: ");
-            String ma = sc.nextLine();
+                case 4:
+                    ql.hienThiDanhSach();
+                    break;
 
-            System.out.print("Ho: ");
-            String ho = sc.nextLine();
+                case 5:
+                    timPhong();
+                    break;
 
-            System.out.print("Ten: ");
-            String ten = sc.nextLine();
+                case 6:
+                    xoaPhong();
+                    break;
 
-            System.out.print("So san pham: ");
-            int soSP = sc.nextInt();
-            sc.nextLine();
+                case 7:
+                    ql.phongDatChuan();
+                    break;
 
-            CongNhan cn = new CongNhan(ma, ho, ten, soSP);
+                case 8:
+                    ql.sapXepDayNha();
+                    System.out.println("Da sap xep tang dan theo day nha.");
+                    ql.hienThiDanhSach();
+                    break;
 
-            ds.ThemCongNhan(cn);
+                case 9:
+                    ql.sapXepDienTich();
+                    System.out.println("Da sap xep giam dan theo dien tich.");
+                    ql.hienThiDanhSach();
+                    break;
+
+                case 10:
+                    ql.sapXepSoBongDen();
+                    System.out.println("Da sap xep tang dan theo so bong den.");
+                    ql.hienThiDanhSach();
+                    break;
+
+                case 11:
+                    capNhatSoMayTinh();
+                    break;
+
+                case 12:
+                    System.out.println("Tong so phong hoc: " + ql.tongSoPhong());
+                    break;
+
+                case 13:
+                    ql.phongMayTinh60May();
+                    break;
+
+                case 0:
+                    System.out.println("Ket thuc chuong trinh!");
+                    break;
+
+                default:
+                    System.out.println("Lua chon khong hop le!");
+            }
+
+        } while (chon != 0);
+    }
+
+    // Nhap thong tin chung
+    public static String nhapMaPhong() {
+        System.out.print("Nhap ma phong: ");
+        return sc.nextLine();
+    }
+
+    public static String nhapDayNha() {
+        System.out.print("Nhap day nha: ");
+        return sc.nextLine();
+    }
+
+    public static float nhapDienTich() {
+        System.out.print("Nhap dien tich: ");
+        return Float.parseFloat(sc.nextLine());
+    }
+
+    public static int nhapSoBongDen() {
+        System.out.print("Nhap so bong den: ");
+        return Integer.parseInt(sc.nextLine());
+    }
+
+    // Them phong ly thuyet
+    public static void themPhongLyThuyet() {
+        System.out.println("\n--- THEM PHONG LY THUYET ---");
+
+        System.out.print("Nhap ma phong: ");
+        String ma = sc.nextLine();
+
+        System.out.print("Nhap day nha: ");
+        String day = sc.nextLine();
+
+        System.out.print("Nhap dien tich: ");
+        float dt = Float.parseFloat(sc.nextLine());
+
+        System.out.print("Nhap so bong den: ");
+        int den = Integer.parseInt(sc.nextLine());
+
+        System.out.print("Co may chieu khong (true/false): ");
+        boolean mayChieu = Boolean.parseBoolean(sc.nextLine());
+
+        PhongLyThuyet p = new PhongLyThuyet(
+                ma, day, dt, den, mayChieu);
+
+        if (ql.themPhong(p)) {
+            System.out.println("Them phong ly thuyet thanh cong!");
+        } else {
+            System.out.println("Ma phong da ton tai!");
         }
+    }
 
-        System.out.println("\n=== DANH SACH CONG NHAN ===");
-        ds.XuatDanhSach();
+    // Them phong may tinh
+    public static void themPhongMayTinh() {
+        System.out.println("\n--- THEM PHONG MAY TINH ---");
 
-        System.out.println("\n=== SO LUONG CONG NHAN ===");
-        System.out.println(ds.SoLuongCN());
+        System.out.print("Nhap ma phong: ");
+        String ma = sc.nextLine();
 
-        System.out.println("\n=== CONG NHAN TREN 200 SAN PHAM ===");
-        ds.CNLamTren200();
+        System.out.print("Nhap day nha: ");
+        String day = sc.nextLine();
 
-        System.out.println("\n=== SAP XEP GIAM DAN ===");
-        ds.SapXepGiam();
-        ds.XuatDanhSach();
+        System.out.print("Nhap dien tich: ");
+        float dt = Float.parseFloat(sc.nextLine());
 
-        sc.close();
+        System.out.print("Nhap so bong den: ");
+        int den = Integer.parseInt(sc.nextLine());
+
+        System.out.print("Nhap so may tinh: ");
+        int soMay = Integer.parseInt(sc.nextLine());
+
+        PhongMayTinh p = new PhongMayTinh(
+                ma, day, dt, den, soMay);
+
+        if (ql.themPhong(p)) {
+            System.out.println("Them phong may tinh thanh cong!");
+        } else {
+            System.out.println("Ma phong da ton tai!");
+        }
+    }
+
+    // Them phong thi nghiem
+    public static void themPhongThiNghiem() {
+        System.out.println("\n--- THEM PHONG THI NGHIEM ---");
+
+        System.out.print("Nhap ma phong: ");
+        String ma = sc.nextLine();
+
+        System.out.print("Nhap day nha: ");
+        String day = sc.nextLine();
+
+        System.out.print("Nhap dien tich: ");
+        float dt = Float.parseFloat(sc.nextLine());
+
+        System.out.print("Nhap so bong den: ");
+        int den = Integer.parseInt(sc.nextLine());
+
+        System.out.print("Nhap chuyen nganh: ");
+        String nganh = sc.nextLine();
+
+        System.out.print("Nhap suc chua: ");
+        int sucChua = Integer.parseInt(sc.nextLine());
+
+        System.out.print("Co bon rua khong (true/false): ");
+        boolean bonRua = Boolean.parseBoolean(sc.nextLine());
+
+        PhongThiNghiem p = new PhongThiNghiem(
+                ma, day, dt, den, nganh, sucChua, bonRua);
+
+        if (ql.themPhong(p)) {
+            System.out.println("Them phong thi nghiem thanh cong!");
+        } else {
+            System.out.println("Ma phong da ton tai!");
+        }
+    }
+
+    // Tim phong theo ma
+    public static void timPhong() {
+        System.out.print("Nhap ma phong can tim: ");
+        String ma = sc.nextLine();
+
+        PhongHoc p = ql.timPhong(ma);
+
+        if (p != null) {
+            System.out.println("Tim thay phong hoc:");
+            p.hienThi();
+        } else {
+            System.out.println("Khong tim thay phong hoc!");
+        }
+    }
+
+    // Xoa phong theo ma
+    public static void xoaPhong() {
+        System.out.print("Nhap ma phong can xoa: ");
+        String ma = sc.nextLine();
+
+        if (ql.xoaPhong(ma)) {
+            System.out.println("Xoa phong thanh cong!");
+        } else {
+            System.out.println("Khong tim thay ma phong!");
+        }
+    }
+
+    // Cap nhat so may tinh
+    public static void capNhatSoMayTinh() {
+        System.out.print("Nhap ma phong may tinh: ");
+        String ma = sc.nextLine();
+
+        System.out.print("Nhap so may tinh moi: ");
+        int soMay = Integer.parseInt(sc.nextLine());
+
+        if (ql.capNhatSoMayTinh(ma, soMay)) {
+            System.out.println("Cap nhat so may tinh thanh cong!");
+        } else {
+            System.out.println(
+                    "Khong tim thay phong may tinh hoac so may khong hop le!");
+        }
     }
 }
